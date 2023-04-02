@@ -1,0 +1,22 @@
+Sub Fill_Reporting_Overview()
+Dim C As Range
+Dim DateMonth As Date
+With ActiveWorkbook.Sheets("ActionLog")
+     Do While .Range("A2") <> ""
+          .Range("A2").EntireRow.Delete
+     Loop
+
+     Set entryActionLog = .Range("A2")
+End With
+Set C = ActiveWorkbook.Sheets("Contract KPIs").Range("H3")
+DateMonth = DateSerial(Year(C), Month(C), 1)
+Do
+    If ActiveWorkbook.Sheets("Contract KPIs").Range("E5") <> DateMonth Then
+          ActiveWorkbook.Sheets("Contract KPIs").Range("E5") = DateMonth
+     End If
+    Call GO(DateMonth)
+    DateMonth = DateMonth + 35
+    DateMonth = DateSerial(Year(DateMonth), Month(DateMonth), 1)
+Loop Until DateMonth > ActiveWorkbook.Sheets("Contract KPIs").Range("I3")
+
+End Sub
